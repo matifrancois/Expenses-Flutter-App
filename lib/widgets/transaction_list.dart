@@ -9,53 +9,64 @@ class TransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      //a continuacion con la funcion .map se iterara por todos los elementos
-      //del mapa transactions llamandolos tx por vez.
-      children: transactions.map((tx) {
-        return Card(
-          child: Row(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.purple,
-                    width: 2,
-                  ),
-                ),
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  //la notacion que sigue es string interpolation
-                  //es similar a hacer: '\$' + tx.amount.toString()
-                  '\$${tx.amount}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Colors.purple,
-                  ),
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    tx.title,
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+    // como tenemos una lista scrolleable media larga, lo mejor es utilizar
+    // un container con el height fijado (importante) y un ListView.builder
+    // este tiene 2 argumentos, el itemBuilder que es una funcion que toma ctx
+    // al cual no le damos mucha bola y index que es el que te dice el indice de
+    // la repeticion del widget, y dentro en return de la funcion el widget a
+    // repetir. De esta manera se refiere al widget como transactions[index].
+    // y el segundo parametro de listview.buider es itemCount, que representa la
+    // cantidad de veces que queremos que se repita el item.
+    return Container(
+      height: 300,
+      child: ListView.builder(
+        itemBuilder: (ctx, index) {
+          return Card(
+            child: Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.purple,
+                      width: 2,
                     ),
                   ),
-                  Text(
-                    DateFormat('dd-MMM-yyyy').format(tx.date),
-                    style: TextStyle(color: Colors.grey),
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    //la notacion que sigue es string interpolation
+                    //es similar a hacer: '\$' + tx.amount.toString()
+                    '\$${transactions[index].amount.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.purple,
+                    ),
                   ),
-                ],
-              ),
-            ],
-          ),
-        );
-      }).toList(),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      transactions[index].title,
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      DateFormat('dd-MMM-yyyy')
+                          .format(transactions[index].date),
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          );
+        },
+        itemCount: transactions.length,
+      ),
     );
   }
 }
