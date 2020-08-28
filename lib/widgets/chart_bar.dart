@@ -12,7 +12,15 @@ class ChartBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text('\$${spendingAmount.toStringAsFixed(0)}'),
+        //fittedBox cambia el tamaño del texto para que pueda entrar en el tamaño
+        //que se tiene, trabaja en conjunto con el flexfit en chart_bar, es decir
+        //flexfit impide que se sobrepase el tamaño que se le otorga al hijo incluso
+        //cuando este lo necesita, y fittedbox se encarga de que si no alcanza el
+        //espacio disminuir la letra para que entre.
+        Container(
+            height: 20,
+            child: FittedBox(
+                child: Text('\$${spendingAmount.toStringAsFixed(0)}'))),
         SizedBox(
           height: 4,
         ),

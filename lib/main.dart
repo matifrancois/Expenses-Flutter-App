@@ -19,6 +19,15 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.amber,
           //asi se puede poner una fuente general para el doc
           fontFamily: 'Quicksand',
+          textTheme: ThemeData.light().textTheme.copyWith(
+                title: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                button:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
           //asi se podria dar una font particular a la appbar en este caso.
           appBarTheme: AppBarTheme(
             textTheme: ThemeData.light().textTheme.copyWith(
