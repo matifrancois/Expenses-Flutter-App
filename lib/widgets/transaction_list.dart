@@ -19,24 +19,28 @@ class TransactionList extends StatelessWidget {
     // y el segundo parametro de listview.buider es itemCount, que representa la
     // cantidad de veces que queremos que se repita el item.
     return transactions.isEmpty
-        ? Column(
-            children: <Widget>[
-              Text(
-                'No transactions added yet',
-                style: Theme.of(context).textTheme.title,
-              ),
-              // Esto es para dar un espaciado de 10 px
-              SizedBox(
-                height: 10,
-              ),
-              // Esto es para meter la imagen, fit para que se acople al tamaño
-              Container(
-                  height: 200,
-                  child: Image.asset(
-                    'Assets/Images/waiting.png',
-                    fit: BoxFit.cover,
-                  )),
-            ],
+        ? LayoutBuilder(
+            builder: (ctx, constraints) {
+              return Column(
+                children: <Widget>[
+                  Text(
+                    'No transactions added yet',
+                    style: Theme.of(context).textTheme.title,
+                  ),
+                  // Esto es para dar un espaciado de 10 px
+                  SizedBox(
+                    height: 10,
+                  ),
+                  // Esto es para meter la imagen, fit para que se acople al tamaño
+                  Container(
+                      height: constraints.maxHeight * 0.6,
+                      child: Image.asset(
+                        'Assets/Images/waiting.png',
+                        fit: BoxFit.cover,
+                      )),
+                ],
+              );
+            },
           )
         : ListView.builder(
             itemBuilder: (ctx, index) {

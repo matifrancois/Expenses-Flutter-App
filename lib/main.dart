@@ -108,6 +108,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    //final debido a que cada vez que se renderiza la app no cambia.
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
     //guardo la appBar en una variable ya que asi podemos tener info del tamaño
     // de esta para controlar responsivemente el tamaño
     final appBar = AppBar(
@@ -119,6 +122,14 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
+
+    final txList = Container(
+        height: (MediaQuery.of(context).size.height -
+                appBar.preferredSize.height -
+                MediaQuery.of(context).padding.top) *
+            0.75,
+        child: TransactionList(_userTransactions, _deleteTransaction));
+
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
@@ -127,38 +138,46 @@ class _MyHomePageState extends State<MyHomePage> {
           //mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('Show Chart'),
-                Switch(
-                  value: _showChart,
-                  onChanged: (val) {
-                    setState(() {
-                      _showChart = val;
-                    });
-                  },
-                ),
-              ],
-            ),
-            _showChart
-                ? Container(
-                    //aca lo que se hace es, al tamaño de la pantalla se le resta el tamañp
-                    // de la appBar utilizado y el tamaño de la barrita de notificaciones
-                    // que todos los celulares tienen donde se indica bateria hora etc
-                    // y a eso se le calcula un % del total que se utilizará para ello
-                    height: (MediaQuery.of(context).size.height -
-                            appBar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.25,
-                    child: Chart(_recentTransactions))
-                : Container(
-                    height: (MediaQuery.of(context).size.height -
-                            appBar.preferredSize.height -
-                            MediaQuery.of(context).padding.top) *
-                        0.75,
-                    child:
-                        TransactionList(_userTransactions, _deleteTransaction)),
+            if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Show Chart'),
+                  Switch(
+                    value: _showChart,
+                    onChanged: (val) {
+                      setState(() {
+                        _showChart = val;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            if (!isLandscape)
+              Container(
+                  //aca lo que se hace es, al tamaño de la pantalla se le resta el tamañp
+                  // de la appBar utilizado y el tamaño de la barrita de notificaciones
+                  // que todos los celulares tienen donde se indica bateria hora etc
+                  // y a eso se le calcula un % del total que se utilizará para ello
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.3,
+                  child: Chart(_recentTransactions)),
+            if (!isLandscape) txList,
+            if (isLandscape)
+              _showChart
+                  ? Container(
+                      //aca lo que se hace es, al tamaño de la pantalla se le resta el tamañp
+                      // de la appBar utilizado y el tamaño de la barrita de notificaciones
+                      // que todos los celulares tienen donde se indica bateria hora etc
+                      // y a eso se le calcula un % del total que se utilizará para ello
+                      height: (MediaQuery.of(context).size.height -
+                              appBar.preferredSize.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.6,
+                      child: Chart(_recentTransactions))
+                  : txList,
           ],
         ),
       ),
