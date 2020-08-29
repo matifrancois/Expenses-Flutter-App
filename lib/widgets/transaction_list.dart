@@ -4,8 +4,9 @@ import 'package:first_app/models/Transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
+  final Function deleteTx;
 
-  TransactionList(this.transactions);
+  TransactionList(this.transactions, this.deleteTx);
 
   @override
   Widget build(BuildContext context) {
@@ -17,31 +18,31 @@ class TransactionList extends StatelessWidget {
     // repetir. De esta manera se refiere al widget como transactions[index].
     // y el segundo parametro de listview.buider es itemCount, que representa la
     // cantidad de veces que queremos que se repita el item.
-    return Container(
-      height: 300,
-      child: transactions.isEmpty
-          ? Column(
-              children: <Widget>[
-                Text(
-                  'No transactions added yet',
-                  style: Theme.of(context).textTheme.title,
-                ),
-                // Esto es para dar un espaciado de 10 px
-                SizedBox(
-                  height: 10,
-                ),
-                // Esto es para meter la imagen, fit para que se acople al tamaño
-                Container(
-                    height: 200,
-                    child: Image.asset(
-                      'Assets/Images/waiting.png',
-                      fit: BoxFit.cover,
-                    )),
-              ],
-            )
-          : ListView.builder(
-              itemBuilder: (ctx, index) {
-                return Card(
+    return transactions.isEmpty
+        ? Column(
+            children: <Widget>[
+              Text(
+                'No transactions added yet',
+                style: Theme.of(context).textTheme.title,
+              ),
+              // Esto es para dar un espaciado de 10 px
+              SizedBox(
+                height: 10,
+              ),
+              // Esto es para meter la imagen, fit para que se acople al tamaño
+              Container(
+                  height: 200,
+                  child: Image.asset(
+                    'Assets/Images/waiting.png',
+                    fit: BoxFit.cover,
+                  )),
+            ],
+          )
+        : ListView.builder(
+            itemBuilder: (ctx, index) {
+              return Container(
+                height: MediaQuery.of(context).size.height * 0.4,
+                child: Card(
                   elevation: 5,
                   margin: EdgeInsets.symmetric(
                     vertical: 5,
@@ -61,12 +62,17 @@ class TransactionList extends StatelessWidget {
                     ),
                     subtitle: Text(
                         DateFormat.yMMMd().format(transactions[index].date)),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () => deleteTx(transactions[index].id),
+                    ),
                   ),
-                );
-              },
-              itemCount: transactions.length,
-            ),
-    );
+                ),
+              );
+            },
+            itemCount: transactions.length,
+          );
   }
 }
 

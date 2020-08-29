@@ -16,11 +16,14 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime _selectedDate;
 
   void _submitData() {
+    if (_amountController.text.isEmpty) {
+      return;
+    }
     final enteredTitle = _titleController.text;
     final enteredAmount = double.parse(_amountController.text);
 
     //little validation
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
       return;
     }
 
@@ -28,6 +31,7 @@ class _NewTransactionState extends State<NewTransaction> {
     widget.addNewTx(
       _titleController.text,
       double.parse(_amountController.text),
+      _selectedDate,
     );
 
     //Esta parte lo que hace es cerrar la ventanita que se abrio con el widget.
