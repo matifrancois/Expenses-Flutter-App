@@ -15,3 +15,4 @@ flutter run
 
 
 ![App Working](Demo/ExpensesApp.gif)
+![App Working](Demo/LandscapeExpenses.gif)
