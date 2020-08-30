@@ -3,13 +3,18 @@ import 'package:intl/intl.dart';
 import 'package:first_app/models/Transaction.dart';
 
 class TransactionList extends StatelessWidget {
+  //Defino la lista de transacciones
   final List<Transaction> transactions;
+  //defino el puntero a la funcion que se pasa como parametro del constructor.
   final Function deleteTx;
 
   TransactionList(this.transactions, this.deleteTx);
 
   @override
   Widget build(BuildContext context) {
+    // #region Comentario
+    // si la lista de transaccion esta vacía mostra el texto y la foto, sino
+    // mostra la lista de cards.
     // como tenemos una lista scrolleable media larga, lo mejor es utilizar
     // un container con el height fijado (importante) y un ListView.builder
     // este tiene 2 argumentos, el itemBuilder que es una funcion que toma ctx
@@ -18,6 +23,7 @@ class TransactionList extends StatelessWidget {
     // repetir. De esta manera se refiere al widget como transactions[index].
     // y el segundo parametro de listview.buider es itemCount, que representa la
     // cantidad de veces que queremos que se repita el item.
+    // #endregion
     return transactions.isEmpty
         ? LayoutBuilder(
             builder: (ctx, constraints) {
@@ -65,6 +71,8 @@ class TransactionList extends StatelessWidget {
                     ),
                     subtitle: Text(
                         DateFormat.yMMMd().format(transactions[index].date)),
+                    //si el tamaño del ancho de pantalla es mayor a 360 entonces
+                    //mostra el texto delete al lado del tacho de basura, sino no.
                     trailing: MediaQuery.of(context).size.width > 360
                         ? FlatButton.icon(
                             onPressed: () => deleteTx(transactions[index].id),
@@ -86,7 +94,7 @@ class TransactionList extends StatelessWidget {
   }
 }
 
-//
+// #region Opcion diferente para mostrar las cards
 //Esta era otra opcion diferente para mostrar las cards,
 //en lugar de circulos usa cuadrados y un estilo algo distinto.
 //
@@ -136,3 +144,4 @@ class TransactionList extends StatelessWidget {
 //     ],
 //   ),
 // );
+// #endregion

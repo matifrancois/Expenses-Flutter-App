@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
+  // aqui se almacena el puntero a la funcion pasada como parametro al constructor
   final Function addNewTx;
 
   NewTransaction(this.addNewTx);
@@ -15,6 +16,12 @@ class _NewTransactionState extends State<NewTransaction> {
   final _amountController = TextEditingController();
   DateTime _selectedDate;
 
+  // #region Comentario
+  //Esta funcion se encarga de validar que se haya encontrado un texto y guarda el mismo
+  //en las variables dadas, ademas se verifica si las mismas cumplen las condiciones
+  //requeridas, si no las cumple se sale de la funcion con return, si las cumple se
+  //llama a addNewTx con los valores ingresados por el usuario
+  // #endregion
   void _submitData() {
     if (_amountController.text.isEmpty) {
       return;
@@ -60,10 +67,13 @@ class _NewTransactionState extends State<NewTransaction> {
 
   @override
   Widget build(BuildContext context) {
+    //contenido scrolleable con todas las tarjeras
     return SingleChildScrollView(
       child: Card(
         elevation: 5,
         child: Container(
+          //aqui con padding lo que se busca es tener en consideracion el tamaño del
+          //panel que aparece en la app para el teclado.
           padding: EdgeInsets.only(
               top: 10,
               left: 10,

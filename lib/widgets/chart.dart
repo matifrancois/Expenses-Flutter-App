@@ -4,6 +4,7 @@ import 'package:first_app/models/Transaction.dart';
 import 'chart_bar.dart';
 
 class Chart extends StatelessWidget {
+  // aqui se almacena la lista de transacciones que se envia por el constructor
   final List<Transaction> recentTransactions;
 
   Chart(this.recentTransactions);
@@ -15,6 +16,8 @@ class Chart extends StatelessWidget {
       );
       double totalSum = 0.0;
 
+      //Aqui se hacen las comprobaciones de que dia debe ser para considerarse
+      //en la suma de gastos del lunes, martes, miercoles etc.
       for (var i = 0; i < recentTransactions.length; i++) {
         if (recentTransactions[i].date.day == weekDay.day &&
             recentTransactions[i].date.month == weekDay.month &&
@@ -23,6 +26,8 @@ class Chart extends StatelessWidget {
         }
       }
 
+      //aqui el reversed.toList() se utiliza para cambiar el orden de los dias
+      //que se mostraran en pantalla.
       return {
         'day': DateFormat.E().format(weekDay).substring(0, 1),
         'amount': totalSum
@@ -30,6 +35,7 @@ class Chart extends StatelessWidget {
     }).reversed.toList();
   }
 
+  //funcion que devuelve el total de lo gastado, fold te permite iterar en c/elem
   double get totalSpending {
     return groupedTransactionValues.fold(0.0, (sum, item) {
       return sum + item['amount'];
@@ -38,6 +44,7 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //para ver en consola
     print(groupedTransactionValues);
     return Card(
       elevation: 6,
@@ -53,6 +60,7 @@ class Chart extends StatelessWidget {
               //flexible y ese fit es para forzar el numero a utilizar el espacio
               //que se tiene y no mas.
               fit: FlexFit.tight,
+              //aqui se hace una comprobacion para evitar la division por 0.
               child: ChartBar(
                 data['day'],
                 data['amount'],

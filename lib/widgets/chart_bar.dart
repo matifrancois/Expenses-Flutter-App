@@ -14,18 +14,25 @@ class ChartBar extends StatelessWidget {
       builder: (ctx, constraints) {
         return Column(
           children: <Widget>[
+            // #region Comentario
+            //
             //fittedBox cambia el tamaño del texto para que pueda entrar en el tamaño
             //que se tiene, trabaja en conjunto con el flexfit en chart_bar, es decir
             //flexfit impide que se sobrepase el tamaño que se le otorga al hijo incluso
             //cuando este lo necesita, y fittedbox se encarga de que si no alcanza el
             //espacio disminuir la letra para que entre.
+            // #endregion
             Container(
-                height: constraints.maxHeight * 0.15,
-                child: FittedBox(
-                    child: Text('\$${spendingAmount.toStringAsFixed(0)}'))),
+              height: constraints.maxHeight * 0.15,
+              child: FittedBox(
+                child: Text('\$${spendingAmount.toStringAsFixed(0)}'),
+              ),
+            ),
+            //espaciado
             SizedBox(
               height: constraints.maxHeight * 0.05,
             ),
+            //todo lo que sigue crea las barras de proporcion de gastos semanales
             Container(
               height: constraints.maxHeight * 0.5,
               width: 10,
@@ -49,9 +56,11 @@ class ChartBar extends StatelessWidget {
                 ],
               ),
             ),
+            //espacido
             SizedBox(
               height: 4,
             ),
+            //Testo con la letra del dia
             Container(
               height: constraints.maxHeight * 0.15,
               child: FittedBox(child: Text(label)),
