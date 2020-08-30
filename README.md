@@ -1,5 +1,7 @@
 # First_app
-This is my first flutter application, it is a really simple app that allows you to select some answers to three questions (but it is easily extendable to more questions) according to your answers the program tells you what kind of person you are, a normal person, a quite strange person or a very strange person.
+
+This is an application made by flutter that allows you to manage your expenses, the application show you all your payments in an scrollable list and shows you the expenses of the week in a chart with the percentage of money used on each day of the week. 
+The application adapts to different screen sizes and works well in normal or landscape mode, with minor modifications to improve on-screen display.
 
 ## Getting Started
 
@@ -7,8 +9,8 @@ To run the code, switch to that example's directory, and use flutter run (you ha
 
 Then in the Command Prompt (CMD):
 
-cd thepath/ofthefolder/of_the_first_app
+cd thepath/ofthefolder/of_ExpensesApp
 flutter run
 
 
-![App Working](Demo/My_first_app.gif)
+![App Working](Demo/ExpensesApp.gif)
