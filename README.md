@@ -10,6 +10,7 @@ To run the code, switch to that example's directory, and use flutter run (you ha
 Then in the Command Prompt (CMD):
 
 cd thepath/ofthefolder/of_ExpensesApp
+
 flutter run
 
 
