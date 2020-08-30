@@ -5,6 +5,7 @@ import 'widgets/new_transaction.dart';
 import 'models/Transaction.dart';
 import 'widgets/chart.dart';
 
+// Aquí empieza el Programa.
 void main() {
   runApp(MyApp());
 }
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Personal Expenses',
+      //Esto te permite modificar el tema de la app.
       theme: ThemeData(
           primarySwatch: Colors.purple,
           accentColor: Colors.amber,
@@ -39,6 +41,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
           )),
+      //aqui le decis que clase queres que sea el home de tu app
       home: MyHomePage(),
     );
   }
@@ -52,7 +55,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
     //
-    //dummy transactions
+    // Aqui se crean la lista de transacciones que se vayan creado
+    // Por ejemplo la siguiente seria una posible transaccion.
     //
     // Transaction(
     //     id: 't1', title: 'New Shoes', amount: 6.99, date: DateTime.now()),
@@ -63,9 +67,10 @@ class _MyHomePageState extends State<MyHomePage> {
     //     date: DateTime.now()),
   ];
 
+  //Esta variable se utiliza luego en Landscape para mostrar o no el grafico
   bool _showChart = false;
 
-  //Devuelve true si el dia es de los ultimos 7
+  // Devuelve true si el dia es de los ultimos 7 días, vendria a ser la condicion
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((tx) {
       //esto retorna true si la fecha de tx es despues de 7 dias antes de hoy
@@ -77,6 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
+  // Esta funcion crea y agrega una nueva transaccion a la lista creada
   void _addNewTransaction(
       String txTitle, double txAmount, DateTime chosenDate) {
     final newTx = Transaction(
@@ -90,14 +96,18 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  // Esta funcion se activa al pulsar los botones + (para crear una nueva trans)
   void _startAddNewTransaction(BuildContext ctx) {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
+          //retorna la clase (widget en realidad) New transaction del archivo
+          // transaction_list, y le pasa puntero a la funcion _addNewTransaction
           return NewTransaction(_addNewTransaction);
         });
   }
 
+  // Esta funcion borra una transaccion al apretar el "delete" de ella.
   void _deleteTransaction(String id) {
     setState(() {
       _userTransactions.removeWhere((tx) {
@@ -112,7 +122,7 @@ class _MyHomePageState extends State<MyHomePage> {
     final isLandscape =
         MediaQuery.of(context).orientation == Orientation.landscape;
     //guardo la appBar en una variable ya que asi podemos tener info del tamaño
-    // de esta para controlar responsivemente el tamaño
+    // de esta para controlar "responsivemente" el tamaño
     final appBar = AppBar(
       title: Text('Personal Expenses'),
       actions: <Widget>[
@@ -123,28 +133,42 @@ class _MyHomePageState extends State<MyHomePage> {
       ],
     );
 
+    //otra variable con un widget dentro para evitar repetir codigo
     final txList = Container(
+        //De esta manera controlo de forma responsive el tamaño basandome en la
+        //pantalla del dispositivo.
         height: (MediaQuery.of(context).size.height -
                 appBar.preferredSize.height -
                 MediaQuery.of(context).padding.top) *
             0.75,
         child: TransactionList(_userTransactions, _deleteTransaction));
-
+    //Scaffold define el tipo de formato basico de nuestra app que es el que
+    //vamos a utilizar.
     return Scaffold(
       appBar: appBar,
+      //Singlechildscrollview permite una vista scrolleable de la pantalla
       body: SingleChildScrollView(
         child: Column(
           //las siguientes lineas controlan el layout de los comp de la columna.
           //mainAxisAlignment: MainAxisAlignment.start,
+          //
+          //En una columna crossAxisAlignment controla el ancho de la misma y
+          //stretch hace que todo ocupe el maximo ancho disponible.
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            //En este caso se utilizan sentencias if antes de cada widget para
+            //indicar si se muestra o no el mismo.
             if (isLandscape)
               Row(
+                //En la row se van a poner las cosas centradas horizontalmente
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
+                  //se pone un switch con la leyenda Show Chart
                   Text('Show Chart'),
                   Switch(
                     value: _showChart,
+                    //al activar el boton se iguala la variable _showChart a val
+                    //setState se utiliza allí para actualizar el contenido en pantalla
                     onChanged: (val) {
                       setState(() {
                         _showChart = val;
@@ -153,9 +177,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
+            //si no se esta en landscape (celular en forma horizontal)
             if (!isLandscape)
               Container(
-                  //aca lo que se hace es, al tamaño de la pantalla se le resta el tamañp
+                  //aca lo que se hace es, al tamaño de la pantalla se le resta el tamaño
                   // de la appBar utilizado y el tamaño de la barrita de notificaciones
                   // que todos los celulares tienen donde se indica bateria hora etc
                   // y a eso se le calcula un % del total que se utilizará para ello
@@ -164,6 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           MediaQuery.of(context).padding.top) *
                       0.3,
                   child: Chart(_recentTransactions)),
+            //aqui se hace uso de la variable txList que es un widget.
             if (!isLandscape) txList,
             if (isLandscape)
               _showChart
@@ -181,6 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
+      //Aqui se define la posicion que luego tendra el floating button que creemos.
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
