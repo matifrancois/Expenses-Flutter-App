@@ -54,6 +54,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
+    // #region Comentario con Transaccion dummy ejemplo
     //
     // Aqui se crean la lista de transacciones que se vayan creado
     // Por ejemplo la siguiente seria una posible transaccion.
@@ -65,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //     title: 'Weekly Groceries',
     //     amount: 16.53,
     //     date: DateTime.now()),
+    // #endregion
   ];
 
   //Esta variable se utiliza luego en Landscape para mostrar o no el grafico
@@ -149,11 +151,14 @@ class _MyHomePageState extends State<MyHomePage> {
       //Singlechildscrollview permite una vista scrolleable de la pantalla
       body: SingleChildScrollView(
         child: Column(
+          // #region Comentario
+          //
           //las siguientes lineas controlan el layout de los comp de la columna.
           //mainAxisAlignment: MainAxisAlignment.start,
           //
           //En una columna crossAxisAlignment controla el ancho de la misma y
           //stretch hace que todo ocupe el maximo ancho disponible.
+          // #endregion
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             //En este caso se utilizan sentencias if antes de cada widget para
@@ -180,10 +185,13 @@ class _MyHomePageState extends State<MyHomePage> {
             //si no se esta en landscape (celular en forma horizontal)
             if (!isLandscape)
               Container(
+                  // #region Comentario
+                  //
                   //aca lo que se hace es, al tamaño de la pantalla se le resta el tamaño
                   // de la appBar utilizado y el tamaño de la barrita de notificaciones
                   // que todos los celulares tienen donde se indica bateria hora etc
                   // y a eso se le calcula un % del total que se utilizará para ello
+                  // #endregion
                   height: (MediaQuery.of(context).size.height -
                           appBar.preferredSize.height -
                           MediaQuery.of(context).padding.top) *
@@ -194,10 +202,13 @@ class _MyHomePageState extends State<MyHomePage> {
             if (isLandscape)
               _showChart
                   ? Container(
+                      // #region Comentario
+                      //
                       //aca lo que se hace es, al tamaño de la pantalla se le resta el tamañp
                       // de la appBar utilizado y el tamaño de la barrita de notificaciones
                       // que todos los celulares tienen donde se indica bateria hora etc
                       // y a eso se le calcula un % del total que se utilizará para ello
+                      // #endregion
                       height: (MediaQuery.of(context).size.height -
                               appBar.preferredSize.height -
                               MediaQuery.of(context).padding.top) *
