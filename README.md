@@ -10,21 +10,21 @@
 
 
 <p align="center">
-  <a href="#what-is-it">What is it</a> •
+  <a href="#what-is-it">What it is</a> •
   <a href="#getting-started">Getting Started</a> •
   <a href="#preview">Preview</a> •
 </p>
 
-## What is it
+## What it is
 
-This is an application that allows you to manage your expenses, the application show you all your payments in an scrollable list and shows you the expenses of the week in a chart with the percentage of money used on each day of the week. 
-The application adapts to different screen sizes and works well in normal or landscape mode, with minor modifications to improve on-screen display.
+This is an application to manage your expenses, it shows you all your payments in a scrollable list and shows you the expenses of the week in a chart with the percentage of money used each day of the week. 
+The application adapts to different screen sizes and works well in portrait or landscape mode, with minor adjustments to improve on-screen display.
 
 ## Getting Started
 
-Make sure you have an emulator, or a device connected over USB and debugging enabled on that device to run your application there.
+Make sure you have an emulator or a USB-connected device with debugging mode enabled to run the application there.
 
-#### 1. [Setup Flutter](https://flutter.io/setup/)
+#### 1. [Set up Flutter](https://flutter.io/setup/)
 
 #### 2. Clone the repo
 
@@ -45,11 +45,11 @@ $ flutter run
 ## Preview
 
 
-### Portrait Mode
+### Portrait View
 
 ![App Working](Demo/ExpensesApp.gif)
 
-### Landscape Mode
+### Landscape View
 
 ![App Working](Demo/LandscapeExpenses.gif)
 
