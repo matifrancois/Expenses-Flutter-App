@@ -16,12 +16,12 @@
 </p>
 
 ## What is it
-<hr>
+
 This is an application that allows you to manage your expenses, the application show you all your payments in an scrollable list and shows you the expenses of the week in a chart with the percentage of money used on each day of the week. 
 The application adapts to different screen sizes and works well in normal or landscape mode, with minor modifications to improve on-screen display.
 
 ## Getting Started
-<hr>
+
 Make sure you have an emulator, or a device connected over USB and debugging enabled on that device to run your application there.
 
 #### 1. [Setup Flutter](https://flutter.io/setup/)
@@ -43,7 +43,7 @@ $ flutter run
 
 
 ## Preview
-<hr>
+
 
 ### Portrait Mode
 
